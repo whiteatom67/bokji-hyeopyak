@@ -1,73 +1,50 @@
-import Image from "next/image";
+// 첫 화면 — DESIGN.md 2번 "화면 구성"의 ① 머리말 부분입니다.
+// 질문 기능(② 참고 문서 목록, ④ 대화 영역, ⑤ 질문 입력)은 다음 개발 단위에서 이 아래에 붙입니다.
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        {/* 앱 이름 */}
-        <h1 className="text-4xl font-bold tracking-tight text-black dark:text-zinc-50 sm:text-5xl">
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8 sm:px-6 sm:py-12">
+      {/* ① 머리말 */}
+      <header className="rounded-2xl bg-brand-900 px-6 py-8 text-white shadow-lg sm:px-10 sm:py-10">
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           복지·협약 한눈에
         </h1>
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h2 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h2>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <p className="mt-3 text-base leading-relaxed text-white/85 sm:text-lg">
+          복지혜택과 업무협약을 물어보세요. 올려 둔 문서 내용만 근거로 답해
+          드려요.
+        </p>
+      </header>
+
+      {/* 준비 중 안내 — 질문 기능이 생기기 전까지 보여 줍니다 */}
+      <section
+        aria-live="polite"
+        className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-brand-100 sm:p-8"
+      >
+        <p className="inline-flex items-center gap-2 rounded-full bg-brand-100 px-3 py-1 text-sm font-medium text-brand-700">
+          <span aria-hidden className="h-2 w-2 rounded-full bg-brand-500" />
+          준비 중
+        </p>
+        <h2 className="mt-4 text-xl font-bold text-brand-900">
+          질문 기능을 준비하고 있어요
+        </h2>
+        <p className="mt-2 leading-relaxed text-ink">
+          준비가 끝나면 이 화면에서 바로 질문할 수 있어요.
+        </p>
+        <ul className="mt-4 flex flex-col gap-2 text-ink">
+          <li className="flex gap-2">
+            <span aria-hidden className="text-brand-500">✓</span>
+            협약이 되어 있는 병원·업체와 혜택 내용 확인
+          </li>
+          <li className="flex gap-2">
+            <span aria-hidden className="text-brand-500">✓</span>
+            직원 복지혜택 확인
+          </li>
+          <li className="flex gap-2">
+            <span aria-hidden className="text-brand-500">✓</span>
+            답변마다 근거 문서와 쪽 번호 표시
+          </li>
+        </ul>
+      </section>
+    </main>
   );
 }
