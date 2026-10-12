@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 복지·협약 한눈에
 
-## Getting Started
+경찰서 직원이 **복지혜택과 업무협약 현황**을 질문 한 번으로 빠르게 확인할 수 있도록 만드는 **문서 근거 챗봇**입니다.
+담당자가 올려 둔 공개 문서(PDF)의 내용만 근거로 답하고, 문서에 없는 내용은 지어내지 않고 "문서에 없습니다"라고 답하는 것을 목표로 합니다.
 
-First, run the development server:
+> **현재 상태: 개발 중** — 기획·계획·설계와 첫 화면까지 완성했고, 문서 읽기와 질의응답 기능은 아직 만들고 있습니다.
+
+## 왜 만드나요
+
+- 협약(병원·숙박 할인 등)과 복지혜택 정보가 공문·게시판·첨부파일에 흩어져 있어 찾기 어렵습니다.
+- 직원은 혜택을 몰라서 놓치고, 담당자는 같은 문의에 반복해서 답합니다.
+
+## 어떻게 동작하나요 (설계)
+
+1. 담당자가 공개 등급 PDF를 `documents/` 폴더에 넣고 배포합니다.
+2. 배포할 때 문서를 미리 읽어 "찾아보기 색인"을 만듭니다.
+3. 직원이 질문하면 뜻이 가까운 문서 부분을 찾아, 그 내용만 근거로 존댓말 답변과 근거 위치(`[문서이름 p.쪽번호]`)를 보여 줍니다.
+
+## 주요 기능
+
+| 구분 | 기능 | 상태 |
+|---|---|---|
+| must 1 | 문서 준비 — `documents/`의 PDF를 읽어 답변 준비, 참고 문서 목록 표시 | 개발 예정 |
+| must 2 | 문서 근거 질의응답 — 문서 내용만 근거, 없으면 "문서에 없습니다" | 개발 예정 |
+| 예외 처리 | 개인정보 입력 차단, AI 장애 안내, 옛·새 문서 충돌 처리 등 5가지 | 개발 예정 |
+| 보안 | 1분 10회 사용 제한, API 키 서버 전용, 대화 기록 미저장 | 개발 예정 |
+| 화면 | 앱 소개 첫 화면 (한국어, 파란색, 휴대폰·PC 대응) | 완료 |
+
+## 기술 스택
+
+- **Next.js 16** (App Router) + TypeScript + Tailwind CSS — 화면과 서버 API를 한 프로젝트에서 처리
+- **OpenAI** gpt-4o-mini(답변), text-embedding-3-small(검색) — 질의응답 기능에서 사용 예정
+- **Vercel** — 배포
+
+## 실행 방법
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+브라우저에서 http://localhost:3000 을 엽니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+질의응답 기능을 쓰려면 프로젝트 폴더에 `.env` 파일을 만들고 `OPENAI_API_KEY=` 뒤에 본인의 키를 넣습니다. `.env`는 `.gitignore`에 등록되어 저장소에 올라가지 않습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 문서 안내
 
-## Learn More
+| 문서 | 내용 |
+|---|---|
+| [PRD.md](PRD.md) | 기획서 — 배경, 목표, 기능, 범위, 보안, 테스트 질문 |
+| [PLAN.md](PLAN.md) | 개발 계획 — 성공 기준과 작업 순서 28개 |
+| [DESIGN.md](DESIGN.md) | 설계서 — 화면 구성, 데이터 흐름, 기술 선택 |
+| [CHECK.md](CHECK.md) | 점검 결과 — 성공 기준 판정, 보안 점검, 고칠 항목 |
+| [CLAUDE.md](CLAUDE.md) | AI 코딩 도우미 작업 규칙 |
+| [documents/README.md](documents/README.md) | 문서 폴더에 PDF를 넣는 규칙 |
 
-To learn more about Next.js, take a look at the following resources:
+## 주의
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `documents/`의 PDF 2개는 **실습용 가상 문서**입니다. 업체명·할인율·기간은 모두 지어낸 것이며 실제 협약이 아닙니다. 실제 운영 전에 공개 등급 실제 문서로 교체합니다.
+- 이 저장소에는 개인정보와 비밀 키가 포함되어 있지 않습니다.
